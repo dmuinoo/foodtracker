@@ -1,11 +1,11 @@
 
 from django.conf.urls import url, include
 from django.contrib import admin
-from foodtaskerapp import views
 from django.contrib.auth import views as auth_views
-
 from django.conf.urls.static import static
 from django.conf import settings
+
+from foodtaskerapp import views, apis
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,10 +27,19 @@ urlpatterns = [
 	url(r'^restaurant/meal/$', views.restaurant_meal, name = 'restaurant-meal'),
 	url(r'^restaurant/meal/add/$', views.restaurant_add_meal, name = 'restaurant-add-meal'),
 	url(r'^restaurant/meal/edit/(?P<meal_id>\d+)/$', views.restaurant_edit_meal, name = 'restaurant-edit-meal'),
-	url(r'^restaurant/order/$', views.restaurant_account, name = 'restaurant-order'),
+	url(r'^restaurant/order/$', views.restaurant_order, name = 'restaurant-order'),
 	url(r'^restaurant/report/$', views.restaurant_account, name = 'restaurant-report'),
 
 
     # Sign In / Sign Up / Sign Out
     url(r'api/social/', include('rest_framework_social_oauth2.urls')),
+
+
+    #APIS for Customer
+    url(r'^api/customer/restaurant/$', apis.customer_get_restaurants),
+    url(r'^api/customer/meal/(?P<restaurant_id>\d+)/$', apis.customer_get_meals),
+	url(r'^restaurant/order/add/$', apis.customer_add_order),
+	url(r'^restaurant/order/latest/$', apis.customer_get_latest_order),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
