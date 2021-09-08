@@ -16,7 +16,7 @@ gunicorn==19.6.0
 idna==2.8
 l==0.11.0
 oauthlib==1.0.3
-Pillow==5.4.1
+Pillow==8.3.2
 PyJWT==1.4.2
 python-social-auth==0.2.21
 python3-openid==3.0.10
